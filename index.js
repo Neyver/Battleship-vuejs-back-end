@@ -1,10 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const sequelize = require('./src/conexion.js');
 const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const Game = require('./src/game.js')
+
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
 
 app.get('/game',(req, res) => {
   Game.join(req.query.token)
@@ -25,6 +35,8 @@ app.post('/game', (req, res) => {
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!')
 })
+
+
 
 
 /*
