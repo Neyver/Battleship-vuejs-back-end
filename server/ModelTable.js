@@ -1,5 +1,6 @@
-var Sequelize  = require('sequelize');
-var sequelize = new Sequelize('battleship', 'sa', 'yoyoyo123A', {
+let Sequelize = require('sequelize');
+let sequelize = require('./Configuration');
+/*let sequelize = new Sequelize('Blattle', 'sa', 'yoyoyo123A', {
 		host: 'localhost',
 		dialect: 'mssql',
 		pool: {
@@ -8,11 +9,12 @@ var sequelize = new Sequelize('battleship', 'sa', 'yoyoyo123A', {
 	    acquire: 30000,
 	    idle: 10000
 		},
-		storage: './data.mssql'
-	});
+        storage: './data.mssql',
+        operatorsAliases: false
+	});*/
 
 
-var Game = sequelize.define('Game', {
+let Gamedb = sequelize.define('Game', {
     gameId: {
         type: Sequelize.INTEGER,
         field: 'game_id'
@@ -27,4 +29,4 @@ var Game = sequelize.define('Game', {
     }
 });
 
-module.exports = Game;
+module.exports = Gamedb;

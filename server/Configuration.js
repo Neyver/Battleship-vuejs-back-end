@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize'),
-	sequelize = new Sequelize('battleship', 'sa', 'yoyoyo123A', {
+    sequelize = new Sequelize('Blattle', 'sa', 'yoyoyo123A', {
 		host: 'localhost',
 		dialect: 'mssql',
 		pool: {
@@ -8,7 +8,8 @@ const Sequelize = require('sequelize'),
 	    acquire: 30000,
 	    idle: 10000
 		},
-		storage: './data.mssql'
+        storage: './data.mssql',
+        operatorsAliases: false
 	});
 
 module.exports = sequelize;
