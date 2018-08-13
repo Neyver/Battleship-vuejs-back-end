@@ -12,10 +12,10 @@ const sequelize = require('./server/Configuration')
 sequelize
     .authenticate()
     .then(() => {
-        console.log('Connection has been established successfully.');
+        console.log('successfully.');
     })
     .catch(err => {
-        console.error('Unable to connect to the database:', err);
+        console.error('error in the connection:', err);
     });
 
 app.get('/game',(req, res) => {
