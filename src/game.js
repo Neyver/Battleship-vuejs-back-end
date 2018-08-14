@@ -1,5 +1,6 @@
-const dbGame = []
+const GameBD = []
 const idHelper = require('./IdHelper.js')
+const BD = require('.././server/ModelTable.js')
 
 class Game {
 	constructor({cols = 10, rows = 10} = {}){
@@ -8,13 +9,21 @@ class Game {
 	}
 	static create({cols = 10, rows = 10} = {}) {
 		const game = new Game({cols,rows});
-		game.id = dbGame.length + 1;
+		game.id = GameBD.length + 1;
 		game.playerId = idHelper();
 		const token = idHelper();
 		game.token = token
-		dbGame.push(game);
+		GameBD.push(game);
 		game.session = `http://localhost:3000/game?token=${token}`;
-
+		BD.sync()
+		  .then(() => BD.create({
+		    gameId: game.id,
+		    session: game.session,
+		    token: game.token
+		  }))
+		  .then(game => {
+              console.log(JSON.stringify(game));
+		  });
 		return Promise.resolve({
 			id : game.id, 
 			session : game.session,
@@ -23,7 +32,7 @@ class Game {
 	}
 
 	static join(token) {
-		const game = dbGame.find(game => game.token === token);
+		const game = GameBD.find(game => game.token === token);
 		if(game === undefined) {
 			return Promise.reject()		
 		}
